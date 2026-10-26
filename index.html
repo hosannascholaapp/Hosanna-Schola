@@ -1017,13 +1017,9 @@
 >
   <div class="modal-contenido">
 
-    <div class="modal-icono" aria-hidden="true">
-      ♫
-    </div>
+    <div class="modal-icono" aria-hidden="true">♫</div>
 
-    <h2 id="tituloAutorizacion">
-      ¡Preparemos tu espacio musical!
-    </h2>
+    <h2 id="tituloAutorizacion">¡Preparemos tu espacio musical!</h2>
 
     <p id="descripcionAutorizacion">
       Para guardar tus esquemas musicales, Hosanna Schola necesita
@@ -1032,31 +1028,52 @@
     </p>
 
     <div class="modal-pasos">
+      <strong>Guía de autorización de Google</strong>
 
-      <strong>¿Qué debes hacer?</strong>
+      <p id="guiaTexto">
+        Sigue las indicaciones de cada pantalla para autorizar el acceso.
+      </p>
 
-      <ol>
-        <li>Revisar los permisos que solicita Google.</li>
-        <li>
-          Seguir la guía de autorización si aparece una advertencia
-          de aplicación no verificada.
-        </li>
-        <li>
-          Confirmar los permisos únicamente si estás de acuerdo
-          con el acceso solicitado.
-        </li>
-      </ol>
+      <div class="guia-imagen-contenedor">
+        <img
+          id="guiaImagen"
+          src="images/permisos/paso1.png"
+          alt="Pantalla 1 de la guía de autorización de Google"
+          style="display:block; width:100%; max-width:560px; height:auto; margin:16px auto; border-radius:8px;"
+        >
+      </div>
 
+      <p id="guiaContador" aria-live="polite">Paso 1 de 7</p>
+
+      <div class="modal-acciones">
+        <button
+          type="button"
+          class="boton-cerrar-modal"
+          id="guiaAnterior"
+          onclick="cambiarPasoGuia(-1)"
+          disabled
+        >
+          Anterior
+        </button>
+
+        <button
+          type="button"
+          class="boton-principal"
+          id="guiaSiguiente"
+          onclick="cambiarPasoGuia(1)"
+        >
+          Siguiente
+        </button>
+      </div>
     </div>
 
     <p class="modal-nota">
       Las pantallas de autorización pertenecen a Google.
-      Los permisos solicitados pueden incluir acceso a los servicios
-      que necesita Hosanna Schola para funcionar.
+      Revisa los permisos solicitados y continúa únicamente si estás
+      de acuerdo con el acceso requerido.
     </p>
 
     <div class="modal-acciones">
-
       <button
         type="button"
         class="boton-principal"
@@ -1072,11 +1089,82 @@
       >
         Volver al inicio
       </button>
-
     </div>
 
   </div>
 </section>
+
+<script>
+const pasosGuiaHosanna = [
+  {
+    imagen: "images/permisos/paso1.png",
+    texto: "Paso 1. Revisa la solicitud de permisos que muestra Google."
+  },
+  {
+    imagen: "images/permisos/paso2.png",
+    texto: "Paso 2. Si Google indica que la aplicación no está verificada, selecciona Configuración avanzada."
+  },
+  {
+    imagen: "images/permisos/paso3.png",
+    texto: "Paso 3. Selecciona la opción para continuar hacia Registro Hosanna Producción."
+  },
+  {
+    imagen: "images/permisos/paso4.png",
+    texto: "Paso 4. Verifica que estés utilizando la cuenta de Google que deseas registrar."
+  },
+  {
+    imagen: "images/permisos/paso5.png",
+    texto: "Paso 5. Revisa los accesos que solicita Hosanna Schola."
+  },
+  {
+    imagen: "images/permisos/paso6.png",
+    texto: "Paso 6. Autoriza los permisos solo si estás de acuerdo con ellos."
+  },
+  {
+    imagen: "images/permisos/paso7.png",
+    texto: "Paso 7. Termina la autorización y sigue con el registro."
+  }
+];
+
+let pasoActualGuia = 0;
+
+function mostrarPasoGuia() {
+  const paso = pasosGuiaHosanna[pasoActualGuia];
+
+  document.getElementById("guiaImagen").src = paso.imagen;
+  document.getElementById("guiaImagen").alt =
+    "Pantalla " + (pasoActualGuia + 1) + " de la guía de autorización";
+
+  document.getElementById("guiaTexto").textContent = paso.texto;
+  document.getElementById("guiaContador").textContent =
+    "Paso " + (pasoActualGuia + 1) + " de " + pasosGuiaHosanna.length;
+
+  document.getElementById("guiaAnterior").disabled = pasoActualGuia === 0;
+
+  document.getElementById("guiaSiguiente").textContent =
+    pasoActualGuia === pasosGuiaHosanna.length - 1
+      ? "Volver al primer paso"
+      : "Siguiente";
+}
+
+function cambiarPasoGuia(direccion) {
+  if (
+    pasoActualGuia === pasosGuiaHosanna.length - 1 &&
+    direccion === 1
+  ) {
+    pasoActualGuia = 0;
+  } else {
+    pasoActualGuia = Math.max(
+      0,
+      Math.min(pasosGuiaHosanna.length - 1, pasoActualGuia + direccion)
+    );
+  }
+
+  mostrarPasoGuia();
+}
+
+mostrarPasoGuia();
+</script>
 
   <!-- ZONA COMPARTIDA PARA LA APLICACIÓN Y EL REGISTRO -->
   <section id="zonaAplicacion" aria-label="Hosanna Schola">

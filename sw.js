@@ -3,12 +3,14 @@ const CACHE_NAME = "hosanna-schola-v2";
 
 const BASE = "/Hosanna-Schola/";
 
+const BASE = "/Hosanna-Schola/";
+
 const ARCHIVOS = [
   BASE,
   BASE + "index.html",
   BASE + "manifest.json",
-  BASE + "hosanna-192.png",
-  BASE + "hosanna-512.png"
+  BASE + "icons/hosanna-192.png",
+  BASE + "icons/hosanna-512.png"
 ];
 
 // Instalar el service worker y guardar los archivos básicos.

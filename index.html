@@ -583,6 +583,143 @@
       }
     }
 
+    /* MODAL DE AUTORIZACIÓN DE GOOGLE */
+
+.modal-autorizacion {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 20000;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(10, 25, 42, 0.78);
+  backdrop-filter: blur(5px);
+}
+
+.modal-autorizacion.activo {
+  display: flex;
+}
+
+.modal-contenido {
+  width: 100%;
+  max-width: 540px;
+  max-height: 90%;
+  overflow-y: auto;
+  padding: 36px;
+  border: 1px solid rgba(216, 169, 79, 0.6);
+  border-radius: 24px;
+  background: var(--crema);
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  animation: aparecerModal 0.25s ease-out;
+}
+
+.modal-icono {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 76px;
+  height: 76px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  background: var(--azul-marino);
+  color: var(--dorado);
+  font-size: 36px;
+}
+
+.modal-contenido h2 {
+  margin: 0 0 18px;
+  color: var(--azul-marino);
+  font-family: Georgia, serif;
+  font-size: 30px;
+  font-weight: normal;
+  line-height: 1.25;
+}
+
+.modal-contenido p {
+  color: #526679;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.modal-pasos {
+  margin: 24px 0;
+  padding: 20px;
+  border-radius: 15px;
+  background: #eef3f6;
+  text-align: left;
+}
+
+.modal-pasos strong {
+  color: var(--azul-profundo);
+}
+
+.modal-pasos ol {
+  padding-left: 22px;
+  margin-bottom: 0;
+  color: #526679;
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.modal-nota {
+  font-size: 13px !important;
+}
+
+.modal-acciones {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.modal-acciones .boton-principal {
+  width: 100%;
+}
+
+.boton-cerrar-modal {
+  padding: 12px;
+  border: none;
+  background: transparent;
+  color: #647385;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.boton-cerrar-modal:hover {
+  color: var(--azul-marino);
+}
+
+@keyframes aparecerModal {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 600px) {
+  .modal-contenido {
+    padding: 27px 21px;
+    border-radius: 20px;
+  }
+
+  .modal-contenido h2 {
+    font-size: 26px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modal-contenido {
+    animation: none;
+  }
+}
+
     /* CELULAR */
 
     @media (max-width: 600px) {
@@ -868,6 +1005,79 @@
 
   </main>
 
+  <!-- MODAL PREVIO AL REGISTRO -->
+
+<section
+  id="modalAutorizacion"
+  class="modal-autorizacion"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="tituloAutorizacion"
+  aria-describedby="descripcionAutorizacion"
+>
+  <div class="modal-contenido">
+
+    <div class="modal-icono" aria-hidden="true">
+      ♫
+    </div>
+
+    <h2 id="tituloAutorizacion">
+      ¡Preparemos tu espacio musical!
+    </h2>
+
+    <p id="descripcionAutorizacion">
+      Para guardar tus esquemas musicales, Hosanna Schola necesita
+      utilizar tu Google Drive y crear el archivo donde se almacenarán
+      tus esquemas.
+    </p>
+
+    <div class="modal-pasos">
+
+      <strong>¿Qué debes hacer?</strong>
+
+      <ol>
+        <li>Revisar los permisos que solicita Google.</li>
+        <li>
+          Seguir la guía de autorización si aparece una advertencia
+          de aplicación no verificada.
+        </li>
+        <li>
+          Confirmar los permisos únicamente si estás de acuerdo
+          con el acceso solicitado.
+        </li>
+      </ol>
+
+    </div>
+
+    <p class="modal-nota">
+      Las pantallas de autorización pertenecen a Google.
+      Los permisos solicitados pueden incluir acceso a los servicios
+      que necesita Hosanna Schola para funcionar.
+    </p>
+
+    <div class="modal-acciones">
+
+      <button
+        type="button"
+        class="boton-principal"
+        onclick="continuarRegistro()"
+      >
+        Continuar con el registro
+      </button>
+
+      <button
+        type="button"
+        class="boton-cerrar-modal"
+        onclick="cerrarModalAutorizacion()"
+      >
+        Volver al inicio
+      </button>
+
+    </div>
+
+  </div>
+</section>
+
   <!-- ZONA COMPARTIDA PARA LA APLICACIÓN Y EL REGISTRO -->
   <section id="zonaAplicacion" aria-label="Hosanna Schola">
 
@@ -911,10 +1121,10 @@
      * URLS DE HOSANNA
      */
     const URL_HOSANNA =
-      "https://script.google.com/macros/s/AKfycbyMakr3dQrsK7Nonl2-RrKqiftZdUEx_LPdQ947avqMnfp4mANfj4ha98PwVLHJ35mYqA/exec";
+      "https://script.google.com/macros/s/AKfycbzBjIMcUvpC31xpdUxqAFM0hm1BDz8mXTqWh2a3P0TRmfQ3_V5a0mSz8j5lMfatb4mqaw/exec";
 
     const URL_REGISTRO =
-      "https://script.google.com/macros/s/AKfycbwYAvgG0iasIcQdCng3ORgML4iAxaxDyG8v3MRUlEyL8UqXb18v23rbDMkPHb74F6M-8Q/exec";
+      "https://script.google.com/macros/s/AKfycbypmraSVV3A2i_g5qSGOqKm3uXFpr6bMD--kMX7eWuYR3fL5dYmk_h8kDv5y5MkBOTXyg/exec";
 
     /*
      * ABRIR LA APLICACIÓN
@@ -930,9 +1140,41 @@
      * mejoras. Por ahora no se envía como parámetro a Apps Script,
      * porque primero debemos confirmar que el formulario lo recibe.
      */
-    function abrirRegistro(paquete) {
-      abrirVista(URL_REGISTRO, "Registro de Hosanna Schola");
-    }
+    /*
+ * MOSTRAR LA VENTANA PREVIA AL REGISTRO
+ */
+function abrirRegistro(paquete) {
+  const modal = document.getElementById("modalAutorizacion");
+
+  modal.classList.add("activo");
+
+  document.body.style.overflow = "hidden";
+
+  modal.querySelector(".boton-principal").focus();
+}
+
+/*
+ * CONTINUAR AL REGISTRO EXISTENTE
+ */
+function continuarRegistro() {
+  cerrarModalAutorizacion();
+
+  abrirVista(
+    URL_REGISTRO,
+    "Registro de Hosanna Schola"
+  );
+}
+
+/*
+ * CERRAR EL MODAL Y REGRESAR A LA LANDING
+ */
+function cerrarModalAutorizacion() {
+  document
+    .getElementById("modalAutorizacion")
+    .classList.remove("activo");
+
+  document.body.style.overflow = "";
+}
 
     /*
      * MOSTRAR UNA VISTA DENTRO DEL IFRAME COMPARTIDO

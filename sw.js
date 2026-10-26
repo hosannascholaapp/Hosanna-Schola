@@ -1,11 +1,14 @@
-const CACHE_NAME = "hosanna-schola-v1";
+
+const CACHE_NAME = "hosanna-schola-v2";
+
+const BASE = "/Hosanna-Schola/";
 
 const ARCHIVOS = [
-  "/hosanna-schola/",
-  "/hosanna-schola/index.html",
-  "/hosanna-schola/manifest.json",
-  "/hosanna-schola/icons/hosanna-192.png",
-  "/hosanna-schola/icons/hosanna-512.png"
+  BASE,
+  BASE + "index.html",
+  BASE + "manifest.json",
+  BASE + "hosanna-192.png",
+  BASE + "hosanna-512.png"
 ];
 
 // Instalar el service worker y guardar los archivos básicos.
@@ -43,7 +46,7 @@ self.addEventListener("fetch", (event) => {
   if (
     solicitud.method !== "GET" ||
     url.origin !== self.location.origin ||
-    !url.pathname.startsWith("/hosanna-schola/")
+    !url.pathname.startsWith(BASE)
   ) {
     return;
   }
@@ -52,21 +55,23 @@ self.addEventListener("fetch", (event) => {
     event.respondWith(
       fetch(solicitud)
         .then((respuesta) => {
-          const copia = respuesta.clone();
-          caches.open(CACHE_NAME)
-            .then((cache) => cache.put(
-              "/hosanna-schola/index.html",
-              copia
-            ));
+          if (respuesta.ok) {
+            const copia = respuesta.clone();
+
+            caches.open(CACHE_NAME)
+              .then((cache) => cache.put(BASE + "index.html", copia));
+          }
+
           return respuesta;
         })
         .catch(async () => {
           return (
             await caches.match(solicitud) ||
-            await caches.match("/hosanna-schola/index.html")
+            await caches.match(BASE + "index.html")
           );
         })
     );
+
     return;
   }
 
@@ -76,3 +81,4 @@ self.addEventListener("fetch", (event) => {
     })
   );
 });
+

@@ -863,6 +863,38 @@
         transition: none !important;
       }
     }
+
+    .guia-navegacion {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin: 16px 0 24px;
+  flex-wrap: wrap;
+}
+
+.guia-navegacion button {
+  flex: 1;
+  min-width: 120px;
+}
+
+#guiaContador {
+  text-align: center;
+  margin: 12px 0;
+}
+
+.modal-acciones {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.modal-acciones button {
+  flex: 1;
+  min-width: 150px;
+}
   </style>
 </head>
 
@@ -1045,7 +1077,7 @@
 
       <p id="guiaContador" aria-live="polite">Paso 1 de 7</p>
 
-      <div class="modal-acciones">
+      <div class="guia-navegacion">
         <button
           type="button"
           class="boton-cerrar-modal"
@@ -1055,7 +1087,7 @@
         >
           Anterior
         </button>
-
+      
         <button
           type="button"
           class="boton-principal"
@@ -1142,9 +1174,9 @@ function mostrarPasoGuia() {
   document.getElementById("guiaAnterior").disabled = pasoActualGuia === 0;
 
   document.getElementById("guiaSiguiente").textContent =
-    pasoActualGuia === pasosGuiaHosanna.length - 1
-      ? "Volver al primer paso"
-      : "Siguiente";
+  pasoActualGuia === pasosGuiaHosanna.length - 1
+    ? "Volver al paso 1"
+    : "Siguiente";
 }
 
 function cambiarPasoGuia(direccion) {
@@ -1235,10 +1267,15 @@ function abrirRegistro(paquete) {
   const modal = document.getElementById("modalAutorizacion");
 
   modal.classList.add("activo");
-
   document.body.style.overflow = "hidden";
 
-  modal.querySelector(".boton-principal").focus();
+   // Reiniciar el desplazamiento del modal.
+  modal.scrollTop = 0;
+  modal.querySelector(".modal-contenido").scrollTop = 0;
+
+  modal.querySelector(".boton-principal").focus({
+    preventScroll: true
+    });
 }
 
 /*

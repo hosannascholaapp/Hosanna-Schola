@@ -1,0 +1,27 @@
+{
+  "id": "/hosanna-schola/",
+  "name": "Hosanna Schola",
+  "short_name": "Hosanna",
+  "description": "Tu compañero digital para organizar, preparar y vivir la música que nos une.",
+  "lang": "es-MX",
+  "start_url": "/hosanna-schola/",
+  "scope": "/hosanna-schola/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#10243b",
+  "theme_color": "#10243b",
+  "icons": [
+    {
+      "src": "icons/hosanna-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/hosanna-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
